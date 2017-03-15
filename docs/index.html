@@ -1,0 +1,332 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>Engine Pipelines</title>
+
+    <link rel="stylesheet" href="css/reveal.css">
+    <link rel="stylesheet" href="css/theme/league.css">
+    <link rel="stylesheet" href="css/custom.css">
+
+    <!-- Theme used for syntax highlighting of code -->
+    <link rel="stylesheet" href="lib/css/zenburn.css">
+
+    <!-- Printing and PDF exports -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? 'css/print/pdf.css' : 'css/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+</head>
+
+<body>
+    <div class="reveal">
+        <div class="slides">
+            <section class="title-slide">
+                <h2>
+                    Build & Deployment Pipelines for Ember Engines
+                </h2>
+
+                <footer>
+                    <div class="author">
+                        Tony Ward
+                    </div>
+                </footer>
+            </section>
+            <section>
+                <section>
+                    <h2>Our Ember App (pre-engine)</h2>
+                </section>
+                <section>
+                    <h2><a href="https://bitbucket.org/inindca/billing-ui">billing-ui</a></h2>
+                    <ul>
+                        <li>billing-ui repo</li>
+                        <li>billing-ui was iFramed into Admin UI</li>
+                        <li>Our pages were accessible by logging into directory > Admin > Account Settings > Subscription</li>
+                    </ul>
+                </section>
+                <section>
+                    <h2>Since we were iframed in...</h2>
+                    <ul>
+                        <li>web-directory would deploy whenever</li>
+                        <li>AdminUI would deploy whenever</li>
+                        <li>We would deploy whenever</li>
+                    </ul>
+                    <p style="font-size: .5em;">As long as no regressions in iframing us in, everything was 👍</p>
+                </section>
+            </section>
+            <section>
+                <section>
+                    <h2>Pre-Engine Pipeline</h2>
+                </section>
+                <section>
+                    <h2>Build Job</h2>
+                    <ul>
+                        <li>Ran unit and integration tests</li>
+                        <li>Built it, deployed out to dev environment</li>
+                    </ul>
+                </section>
+                <section>
+                    <h2>{env} Automation Jobs + Promotion Jobs</h2>
+                    <p>If automation tests pass, promote up, expanding automation test coverage</p>
+                </section>
+                <section>
+                    <h2>Promoted to Stage, All Tests Passed</h2>
+                    <p>Put up a CM request and ship it to prod</p>
+                </section>
+                <section>
+                    <h2>Sweet Pipeline!</h2>
+                    <p>This pipeline was nice, because it ensured tests gated promotion to higher environments</p>
+                </section>
+            </section>
+            <section>
+                <section>
+                    <h2>But wait! Now we are an engine...</h2>
+                    <div class="fragment">
+                        <pre><code data-trim>
+                            // package.json
+                            "ember-engine-billing": "^2.0.0"
+                        </code></pre>
+                        <ul>
+                            <li>We are a dependency inside of web-directory</li>
+                            <li>Whenever they push to an environment, we do too</li>
+                            <li>We can't use the existing pipeline anymore</li>
+                        </ul>
+                    </div>
+                </section>
+                <section>
+                    <h2>Today's Topic</h2>
+                    <p>How can we ensure the version we push out with web-directory has hopped through all of the testing hoops and is prod ready?</p>
+                </section>
+            </section>
+            <section>
+                <section>
+                    <h2>A few quick notes...</h2>
+                </section>
+                <section>
+                    <p>We have an existing, working pipeline where we pin the version of our engine in web-directory</p>
+                    <p class="fragment" style="margin-top: 50px;">We have a suggestion if you're using semantic versioning in your engine, but the pipeline isn't built yet</p>
+                </section>
+                <section>
+                    <h2>Quick Overview of Both Pipelines</h2>
+                    <ul>
+                        <li class="fragment">Run lots of dev tests (unit, integration, and acceptance tests on our engine and web-directory)</li>
+                        <li class="fragment">Take web-directory's develop branch, tell it to use our latest engine code, and deploy it out to a custom DCA URL</li>
+                        <li class="fragment">Run a bunch of automation tests against our latest engine</li>
+                        <li class="fragment">Let those tests gate either the artifactory push (semver) or a manual PR to web-directory (pinned)</li>
+                        <li class="fragment">Kick off additional automation tests when web-directory deploys to other environments</li>
+                    </ul>
+                </section>
+                <section>
+                    <h2>Pre-req: <a href="https://confluence.inin.com/pages/viewpage.action?title=Adding+Your+Ember+Engine+Custom+URL+to+Directory%27s+OAuth+Config&spaceKey=PureCloud" target="_blank">Setup your engine DCA URL</a></h2>
+                    <ul>
+                        <li>Add Your Ember Engine Custom URL to Directory's OAuth Config</li>
+                        <li>This is where web-directory + your latest engine will be deployed</li>
+                        <li>Only have to do this once</li>
+                    </ul>
+                </section>
+            </section>
+            <section>
+                <section>
+                    <h2>Building and Deploying Ember Engines (pinned)</h2>
+                    <p style="text-align: center; bottom: 0; left: 0; position:fixed; right: 0; font-size: 0.75em;">ember-engine-billing view in Jenkins</p>
+                </section>
+                <section>
+                    <h2>Pin the Engine</h2>
+                    <p>We pin our version in web-directory's package.json</p>
+                    <pre><code data-trim>
+                        // package.json
+                        "ember-engine-billing": "2.0.0"
+                    </code></pre>
+                    <ul>
+                        <li class="fragment">This pinned version should be considered "production ready"</li>
+                        <li class="fragment">It passed all automation tests</li>
+                        <li class="fragment">We know the exact version that will get deployed</li>
+                    </ul>
+                </section>
+                <section>
+                    <h2>Step #1: <a href="https://jenkins.ininica.com/view/QA/view/ember-engine-billing/job/publish-ember-engine-billing/">Publish Job</a></h2>
+                    <ul>
+                        <li class="fragment">Typical job everyone else uses, but is wired to fire off when something merges into master</li>
+                        <li class="fragment">Runs our unit, integration, and acceptance (soon ™) tests</li>
+                        <li class="fragment">Auto-increments the patch version (respects major/minor bumps)</li>
+                        <li class="fragment">Pushes to artifactory</li>
+                    </ul>
+                </section>
+                <section>
+                    <h2>Step #2a: <a href="https://jenkins.ininica.com/view/QA/view/ember-engine-billing/job/build-directory-engine-billing/">Build Job</a></h2>
+                    <ul>
+                        <li class="fragment">Pulls the latest web-directory develop branch</li>
+                        <li class="fragment">
+                            Utilizes npm to install the latest version of our engine from artifactory
+                            <ul>
+                                <li class="fragment">
+                                     <pre><code data-trim>
+                                        npm install ember-engine-billing@latest --save-dev
+                                    </code></pre>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="fragment">Runs web-directory's tests</li>
+                    </ul>
+                </section>
+                <section>
+                    <h2>Step #2b: <a href="https://jenkins.ininica.com/view/QA/view/ember-engine-billing/job/build-directory-engine-billing/">Build Job</a></h2>
+                    <ul>
+                        <li class="fragment">Deploys develop + our latest engine to <a href="https://apps.inindca.com/directory-billing/" target="_blank">https://apps.inindca.com/directory-billing/</a></li>
+                        <li class="fragment">We will use this URL to run our automation tests</a></li>
+                    </ul>
+                </section>
+                <section>
+                    <h2>Step #3: <a href="https://jenkins.ininica.com/view/QA/view/ember-engine-billing/job/test-web-directory-billing-web-dev-alpha/">Automation Job</a></h2>
+                    <ul>
+                        <li class="fragment">Our tests are pointed at <a href="https://apps.inindca.com/directory-billing/" target="_blank">https://apps.inindca.com/directory-billing/</a></li>
+                        <li class="fragment">We browse to our engine after logging in <a href="https://apps.inindca.com/directory-billing/#/admin/billing/subscription" target="_blank">https://apps.inindca.com/directory-billing/#/admin/billing/subscription</a></li>
+                        <li class="fragment">Runs P1-P5 tests</a></li>
+                    </ul>
+                </section>
+                <section>
+                    <h2>Step #4: Manual PR</h2>
+                    <ul>
+                        <li class="fragment">All tests passed?  Great - put up a PR to web-directory to pin this new version</li>
+                        <li class="fragment">Your latest engine will now be deployed</li>
+                    </ul>
+                </section>
+                <section>
+                    <h2>Step #5: Additional Automation Tests</h2>
+                    <ul>
+                        <li class="fragment">When web-directory deploys to any environment, kick off a non-blocking automation job</li>
+                        <li class="fragment">We prefer running smoke tests at this point</li>
+                    </ul>
+                </section>
+            </section>
+            <section>
+                <section>
+                    <h2>Building and Deploying Ember Engines (semver)</h2>
+                </section>
+                <section>
+                    <h2>Semver Engine</h2>
+                    <p>web-directory pulls in your engine using semver via the package.json</p>
+                    <pre><code data-trim>
+                        // package.json
+                        "ember-engine-billing": "^2.0.0"
+                    </code></pre>
+                    <p>Due to that, we should be careful when publishing new versions of our engine to artifactory</p>
+                </section>
+                <section>
+                    <h2>Pinned vs Semantic Versioning Pipeline</h2>
+                    <ul>
+                        <li class="fragment">Shifting automation tests left, shifting publish to artifactory right</li>
+                        <li class="fragment">Automation tests now gate the publish to artifactory instead of gating a manual PR to web-directory</li>
+                    </ul>
+                </section>
+                <section>
+                    <h2>Step #1: Deployment Job</h2>
+                    <ul>
+                        <li>
+                            Pull down your latest engine from bitbucket
+                            <ul>
+                                <li>Run all unit, integration, and acceptance tests</li>
+                            </ul>
+                        </li>
+                        <li>
+                            Pull down your web-directory's develop branch
+                            <ul>
+                                <li>Run all unit, integration, and acceptance tests</li>
+                            </ul>
+                        </li>
+                        <li>Use npm to link your engine to web-directory and deploy it out to DCA (<a href="https://apps.inindca.com/directory-billing/" target="_blank">/directory-billing/</a>)</li>
+                    </ul>
+                </section>
+                <section>
+                    <h2>Shared Steps</h2>
+                    <ul>
+                        <li>Step #2: Automation Job similar to pinned steps</li>
+                        <li>Step #3: Artifactory Publish Job</li>
+                    </ul>
+                </section>
+                <section>
+                    <h2>Step #4: Profit (deploy)</h2>
+                    <ul>
+                        <li>Due to semver, web-directory will pick up your latest changes on the next deploy</li>
+                    </ul>
+                </section>
+                <section>
+                    <h2>Step #5: Additional Automation Tests</h2>
+                    <ul>
+                        <li>Same as pinned step</li>
+                    </ul>
+                </section>
+            </section>
+            <section>
+                <section>
+                    <h2>Advantages of these Pipelines</h2>
+                    <ul>
+                        <li class="fragment">Automatic pushing to artifactory</li>
+                        <li class="fragment">The version of your engine in web-directory has the automation stamp of approval (on top of all dev tests!)</li>
+                        <li class="fragment">Can still kick off automation jobs at every deployment level</li>
+                    </ul>
+                </section>
+                <section>
+                    <h2>Next Steps</h2>
+                    <ul>
+                        <li>If other teams want to adopt this, should make nice Jenkins templates for reusability</li>
+                        <li>Open to feedback</li>
+                        <li>Create a semver pipeline</li>
+                    </ul>
+                </section>
+            </section>
+            <section class="outro-slide">
+                <figure>
+                    <img src="http://i.giphy.com/jYAGkoghdmD9S.gif" alt="That's all folks'" width="400px" height="225">
+                    <figcaption>
+                        Any questions?
+                    </figcaption>
+                </figure>
+
+                <footer>
+                    <div class="author">
+                        Tony Ward
+                    </div>
+                </footer>
+            </section>
+        </div>
+    </div>
+
+    <script src="lib/js/head.min.js"></script>
+    <script src="js/reveal.js"></script>
+
+    <script>
+        // More info https://github.com/hakimel/reveal.js#configuration
+        Reveal.initialize({
+            history: true,
+
+            // More info https://github.com/hakimel/reveal.js#dependencies
+            dependencies: [{
+                    src: 'plugin/markdown/marked.js'
+                },
+                {
+                    src: 'plugin/markdown/markdown.js'
+                },
+                {
+                    src: 'plugin/notes/notes.js',
+                    async: true
+                },
+                {
+                    src: 'plugin/highlight/highlight.js',
+                    async: true,
+                    callback: function() {
+                        hljs.initHighlightingOnLoad();
+                    }
+                }
+            ]
+        });
+    </script>
+</body>
+
+</html>

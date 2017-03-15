@@ -1,0 +1,84 @@
+/* Theme/Style Overrides */
+.reveal h1, .reveal h2 {
+    text-transform: none;
+}
+
+.reveal .slides section figure figcaption {
+    font-size: .5em;
+}
+
+/* Global classes */
+
+div.columns {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: no-wrap;
+    justify-content: space-around;
+    align-items: center;
+}
+
+div.columns.two-columns > * {
+    flex: 0 1 50%;
+}
+
+ul.nested > li {
+    margin-bottom: 20px;
+}
+
+ul.directory-structure li {
+    list-style: none;
+}
+
+/* Slide Specific styles */
+
+/* Remove spacing for "inting" string until displayed */
+.reveal .slides section.title-slide .title-flare {
+    display: inline-block;
+    width: 0;
+    word-wrap: normal;
+    color: #FFFFFF;
+}
+
+.reveal .slides section.title-slide .title-flare.current-fragment,
+.reveal .slides section.title-slide .title-flare.visible {
+    width: auto;
+    word-wrap: break-word;
+    color: #FF0000;
+}
+
+/* Customize title animation */
+.reveal .slides section.title-slide *[data-fragment-index="0"] {
+    transition: opacity 2s ease-in;
+}
+
+.reveal .slides section.title-slide figure {
+    margin-bottom: 3em;
+}
+
+.reveal .slides section.title-slide figure img {
+    margin-bottom: 0;
+}
+
+.reveal .slides section.title-slide figure figcaption {
+    margin-top: 0;
+}
+
+.reveal .slides section.title-slide footer {
+    font-size: .5em;
+}
+
+.reveal .slides section.outro-slide figure {
+    margin-bottom: 3em;
+}
+
+.reveal .slides section.outro-slide figure img {
+    margin-bottom: 0;
+}
+
+.reveal .slides section.outro-slide figure figcaption {
+    margin-top: 0;
+}
+
+.reveal .slides section.outro-slide footer {
+    font-size: .5em;
+}
