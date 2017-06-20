@@ -1,0 +1,232 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>Testing n' Stuff</title>
+
+    <link rel="stylesheet" href="css/reveal.css">
+    <link rel="stylesheet" href="css/theme/league.css">
+    <link rel="stylesheet" href="css/custom.css">
+
+    <!-- Theme used for syntax highlighting of code -->
+    <link rel="stylesheet" href="lib/css/zenburn.css">
+
+    <!-- Printing and PDF exports -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? 'css/print/pdf.css' : 'css/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+</head>
+
+<body>
+    <div class="reveal">
+        <div class="slides">
+            <section class="title-slide">
+                <h2>
+                    Testing n' Stuff
+                </h2>
+
+                <footer>
+                    <div class="author">
+                        Tony Ward
+                    </div>
+                </footer>
+            </section>
+            <section>
+                <section>
+                    <h2>Popular Ember Testing Topics</h2>
+                    <ul>
+                        <li>ember-test-selectors</li>
+                        <li>ember-cli-page-object</li>
+                    </ul>
+                    <p>Increase robustness of your test suite</p>
+                </section>
+            </section>
+            <section>
+                <section>
+                    <h2>ember-test-selectors</h2>
+                </section>
+                <section>
+                    <h2>The Problem</h2>
+                    <p>Using CSS selectors in tests</p>
+                    <ul>
+                        <li>Selecting elements via CSS can be brittle. We are selecting elements based on something that could change.</li>
+                        <li>The purpose of CSS classes are styling, not testing.</li>
+                    </ul>
+                    <h3 style="margin-top: 25px">Solution:ember-test-selectors</h3>
+                </section>
+                <section>
+                    <h2>Tell me more...</h2>
+                    <ul>
+                        <li>Use HTML5 data attributes for your elements</li>
+                        <li>Provides a testSelector function - you provide a data attribute and it returns the element</li>
+                        <li>Strips out the attributes on production builds (can override via the build file)</li>
+                        <li>Does some heavy lifting for data attributes and components for you, just pass a data test attribute and you're done</li>
+                    </ul>
+                </section>
+                <section>
+                    <h2>Example:</h2>
+                    <p>This test looks at a collection of usage charges and asserts</p>
+                    <img src="./img/before.png"/>
+                </section>
+                <section>
+                    <h2>Template Changes:</h2>
+                    <img src="./img/after-hbs-marked.png" />
+                </section>
+                <section>
+                    <h2>Re-written Test:</h2>
+                    <img src="./img/after-test-2.png" />
+                    <p>0 dependencies on CSS classes!</p>
+                </section>
+                <section>
+                    <h2>Summary</h2>
+                    <ul>
+                        <li>Less brittle tests, since they are no longer dependent on CSS classes</li>
+                        <li>Can be used with integration or acceptance tests</li>
+                        <li>Really easy to implement</li>
+                        <li>Great docs and resources online</li>
+                    </ul>
+                </section>
+            </section>
+            <section>
+                <section>
+                    <h2>ember-cli-page-object</h2>
+                </section>
+                <section>
+                    <h2>Summary</h2>
+                    <h5>"The main idea behind this pattern is to encapsulate in an object the page or component structure being tested, hiding the details of its HTML structure and exposing only the semantic structure of the page."</h5>
+                    <p>Create an object that represents your page/component and expose props/methods to interact with it.</p>
+                </section>
+                <section>
+                    <h2>Automation Testing</h2>
+                    <ul>
+                        <li>Our automation tests follow this pattern, because it allows for a clean interface with your pages</li>
+                        <li>When adding new functionality, you add it to your page object and expose methods of interacting with the element(s)</li>
+                        <li>Keeps your test files really clean and specific to tests versus test setup or interacting with multiple elements for an expected result</li>
+                    </ul>
+                </section>
+                <section>
+                    <h2>Example Page Object</h2>
+                    <!--<pre><code data-trim>
+                        import testSelector from 'ember-test-selectors';
+                        import PageObject, {
+                            clickable,
+                            fillable,
+                            text,
+                            visitable
+                        } from 'ember-cli-page-object';
+
+                        export default PageObject.create({
+                            visit: visitable('/account'),
+
+                            username: fillable(testSelector('registration-user-name')),
+                            password: fillable(testSelector('registration-password')),
+                            passwordConfirmation: fillable(testSelector('registration-password-confirmation')),
+                            submit: clickable(testSelector('registration-submit-button')),
+                            passwordError: text(testSelector('form-field-error-message', 'password-confirmation'))
+
+                            invalidPasswordConfirmation() {
+                                return this.username('admin')
+                                .password('invalid')
+                                .passwordConfirmation('')
+                                .submit();
+                            }
+                        });
+                    </code></pre>-->
+                    <img src="./img/page-object.png" />
+                </section>
+                <section>
+                    <h2>Example of Test</h2>
+                    <!--<pre><code data-trim>
+                        test('shows an error when the password confirmation is invalid', function(assert) {
+                            page.visit()
+                                .invalidPasswordConfirmation();
+
+                            andThen(function() {
+                                assert.equal(page.passwordError, 'Invalid password confirmation');
+                            });
+                        });
+                    </code></pre>-->
+                    <img src="./img/page-object-test-2.png" />
+                </section>
+                <section>
+                    <h2>Summary</h2>
+                    <ul>
+                        <li>Create objects that model your pages and expose ways of interacting with your UI</li>
+                        <li>Helps increase robustness of tests, so you only have to make changes in one spot to particular flows</li>
+                        <li>Plays nice with ember-test-selectors (so far... although I ran out of time getting the 'collection' to work)</li>
+                    </ul>
+                </section>
+            </section>
+            <section>
+                <h2>Resources</h2>
+                <ul>
+                    <li>
+                        <a href="https://emberway.io/maintainable-user-interface-testing-with-ember-40f1b58040b6">Medium post on all of the above</a>
+                        <ul>
+                            <li>ember-cli-mirage</li>
+                            <li>ember-test-selectors</li>
+                            <li>ember-cli-page-object</li>
+                            <li>async/await</li>
+                        </ul>
+                    </li>
+                    <li><a href="https://embermap.com/video/ember-test-selectors">EmberMap ember-test-selectors</a></li>
+                    <li><a href="https://embermap.com/video/levels-of-abstraction-in-testing">Testing abstraction</a></li>
+                    <li><a href="https://embermap.com/topics/acceptance-testing">Acceptance testing</a></li>
+                </ul>
+            </section>
+            <section class="outro-slide">
+                <figure>
+                    <img src="http://i.giphy.com/jYAGkoghdmD9S.gif" alt="That's all folks'" width="400px" height="225">
+                    <figcaption>
+                        Any questions?
+                    </figcaption>
+                </figure>
+
+                <footer>
+                    <div class="author">
+                        Tony Ward
+                    </div>
+                </footer>
+            </section>
+        </div>
+    </div>
+
+    <script src="lib/js/head.min.js"></script>
+    <script src="js/reveal.js"></script>
+
+    <script>
+        // More info https://github.com/hakimel/reveal.js#configuration
+        Reveal.initialize({
+            history: true,
+
+            // More info https://github.com/hakimel/reveal.js#dependencies
+            dependencies: [{
+                    src: 'plugin/markdown/marked.js'
+                },
+                {
+                    src: 'plugin/markdown/markdown.js'
+                },
+                {
+                    src: 'plugin/notes/notes.js',
+                    async: true
+                },
+                {
+                    src: 'plugin/highlight/highlight.js',
+                    async: true,
+                    callback: function() {
+                        hljs.initHighlightingOnLoad();
+                    }
+                }
+            ]
+        });
+    </script>
+</body>
+
+</html>
