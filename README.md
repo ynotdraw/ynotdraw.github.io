@@ -5,3 +5,5 @@ Hi.  I've posted slides on presentations I've done.  Feel free to pull them down
 ## Ember Slides
 * [engine-pipelines](https://ynotdraw.github.io/engine-pipelines/index.html#/) - I talk about build and deployment pipelines for Ember Engines.
 * [testing-n-stuff](https://ynotdraw.github.io/testing-n-stuff/index.html#/) - I discuss ember-cli-page-object and ember-test-selectors. Show off very brief examples of why they are great add-ons.  Also share some great testing links.
+
+I also post over on Medium at https://medium.com/@ynotdraw.
