@@ -1,0 +1,252 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>reveal.js</title>
+
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/black.css">
+
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+				<section>
+					<h2>ember decorators</h2>
+					<footer>
+						<div class="author">Tony Ward (@YnotDraw)</div>
+				</footer>
+				</section>
+
+				<!-- Use the new docs for assistance - lots of great explanations! -->
+				<!-- https://github.com/ember-decorators/ember-decorators/commit/8ccfb732bf0065977526aea6e31b184f13f27acd -->
+				<!-- https://github.com/ember-decorators/ember-decorators/blob/8ccfb732bf0065977526aea6e31b184f13f27acd/packages/-ember-decorators/tests/dummy/app/pods/docs/cheat-sheet/template.md -->
+				<section>
+					<section>
+							<h2>EmberConf 2018</h2>
+							<p>Tom & Yehuda showed off how they'd like to see Ember written in the future</p>
+							<img src='./img/emberconf.png' />
+					</section>
+					<section>
+							<h2>Class Syntax + Decorators</h2>
+							<ul>
+								<li>TC39 introduced class syntax with ES6</li>
+								<li>Decorators are needed for things like computed properties</li>
+							</ul>
+					</section>
+					<section>
+						<h2>How do we get there?</h2>
+						<a href='https://medium.com/build-addepar/es-classes-in-ember-js-63e948e9d78e' target='_blank'>https://medium.com/build-addepar/es-classes-in-ember-js-63e948e9d78e</a>
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h2>What is a decorator?</h2>
+						<p>A function that takes another function and extends the behavior of the latter function without explicitly modifying it.</p>
+					</section>
+					<section>
+						<h2>Example</h2>
+						<pre>
+							<code>
+// http://babeljs.io/blog/2015/03/31/5.0.0/#stage-1:-decorators
+@concat("firstName", "lastName", " ") fullName;
+
+function concat(...args) {
+  let sep = args.pop();
+
+  return function(target, key, descriptor) {
+    descriptor.initializer = function() {
+      return args.map(arg => this[arg]).join(sep);
+    }
+  }
+}
+							</code>
+						</pre>
+					</section>
+					<section>
+							<h2>Example</h2>
+							<pre>
+								<code>
+// http://babeljs.io/blog/2015/03/31/5.0.0/#stage-1:-decorators
+@autobind
+getFullName() {
+	return `${this.firstName} ${this.lastName}`;
+}
+
+function autobind(target, key, descriptor) {
+	var fn = descriptor.value;
+	delete descriptor.value;
+	delete descriptor.writable;
+	descriptor.get = function () {
+		var bound = fn.bind(this);
+		Object.defineProperty(this, key, {
+			configurable: true,
+			writable: true,
+			value: bound});
+		return bound;
+	};
+}
+								</code>
+							</pre>
+						</section>
+				</section>
+
+				<section>
+					<section>
+						<h2>There's an Ember addon for that...</h2>
+						<pre>
+							<code>
+ember install ember-decorators
+							</code>
+						</pre>
+					</section>
+					<section>
+						Can migrate things over incrementally
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h1>Demo</h1>
+					</section>
+					<section>
+							<h2>Example Model</h2>
+							<a href='https://github.com/ynotdraw/ember-github-decorators/blob/master/app/models/user.js' target='_blank'>https://github.com/ynotdraw/ember-github-decorators/blob/master/app/models/user.js</a>
+					</section>
+					<section>
+						<h2>Example Route</h2>
+						<a href='https://github.com/ynotdraw/ember-github-decorators/blob/master/app/routes/application.js' target='_blank'>https://github.com/ynotdraw/ember-github-decorators/blob/master/app/routes/application.js</a>
+					</section>
+					<section>
+							<h2>Example Controller</h2>
+							<a href='https://github.com/ynotdraw/ember-github-decorators/blob/master/app/controllers/application.js' target='_blank'>https://github.com/ynotdraw/ember-github-decorators/blob/master/app/controllers/application.js</a>
+					</section>
+					<section>
+							<h2>Example Component</h2>
+							<a href='https://github.com/ynotdraw/ember-github-decorators/blob/master/app/components/repository-card.js' target='_blank'>https://github.com/ynotdraw/ember-github-decorators/blob/master/app/components/repository-card.js</a>
+					</section>
+					<section>
+						<h2>Component Arguments</h2>
+						<ul>
+							<li>Help determine component arguments versus component state properties and their default values</li>
+							<li>Validate the argument type (string, number, action, closure action, etc.)</li>
+						</ul>
+					</section>
+					<section>
+						Positional Params are so much nicer - just use a `static` field
+						<pre>
+							<code>
+// before
+const FooComponent = Component.extend({});
+
+FooComponent.reopenClass({
+  positionalParams: ['bar', 'baz']
+});
+
+// after
+class FooComponent extends Component {
+  static positionalParams = ['bar', 'baz'];
+}
+							</code>
+						</pre>
+					</section>
+					<section>
+							Cool code mod issue to convert things for you
+							(<a href='https://github.com/ember-decorators/ember-decorators/issues/206' target='_blank'>issue</a>)
+					</section>
+				</section>
+
+				<section>
+					<h2>A few things to be aware of:</h2>
+					<section>
+						Still considered experimental - depends on TC39; however, is commited to keeping up with the changes
+					</section>
+					<section>
+						Ember Inspector no longer works for models, but they're aware of it
+					</section>
+					<section>
+						Increased file size (for now)
+						<blockquote>
+							Running the decorator code through gzip and uglification results in a final file size of 293 bytes, so about 0.25 kbs per file that includes decorators.
+						</blockquote>
+					</section>
+					<section>
+						No ember-cli support yet, still uses old blueprint (<a href='https://github.com/ember-decorators/ember-decorators/issues/142' target='_blank'>issue</a>)
+					</section>
+				</section>
+
+				<section>
+					<h2>Advantages</h2>
+					<section>
+						Can provide feedback on class syntax + decorators early
+					</section>
+					<section>
+						No longer relies on the Ember object model, instead uses native JS (lower barrier to entry for new devs)
+					</section>
+					<section>
+						Declarative, clean syntax.  Easier to read and reason about.
+					</section>
+					<section>
+						Really great documentation for the addon
+					</section>
+				</section>
+
+				<section>
+						Resources:
+						<ul>
+							<li>
+									<a href='https://github.com/ember-decorators/ember-decorators' target='_blank'>https://github.com/ember-decorators/ember-decorators</a>
+							</li>
+							<li>
+								<a href='https://github.com/NYCPlanning/labs-citymap' target='_blank'>https://github.com/NYCPlanning/labs-citymap</a>
+							</li>
+							<li>
+								<a href='https://medium.com/build-addepar/es-classes-in-ember-js-63e948e9d78e' target='_blank'>https://medium.com/build-addepar/es-classes-in-ember-js-63e948e9d78e</a>
+							</li>
+							<li>
+								<a href='http://babeljs.io/blog/2015/03/31/5.0.0/#stage-1:-decorators' target='_blank'>http://babeljs.io/blog/2015/03/31/5.0.0/#stage-1:-decorators</a>
+							</li>
+						</ul>
+				</section>
+			</div>
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+
+		<script>
+			// More info about config & dependencies:
+			// - https://github.com/hakimel/reveal.js#configuration
+			// - https://github.com/hakimel/reveal.js#dependencies
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+				dependencies: [
+					{ src: 'plugin/markdown/marked.js' },
+					{ src: 'plugin/markdown/markdown.js' },
+					{ src: 'plugin/notes/notes.js', async: true },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+				]
+			});
+		</script>
+	</body>
+</html>
