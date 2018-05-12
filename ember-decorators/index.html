@@ -25,10 +25,34 @@
 		<div class="reveal">
 			<div class="slides">
 				<section>
-					<h2>ember decorators</h2>
+					<h1>class syntax + decorators</h1>
 					<footer>
-						<div class="author">Tony Ward (@YnotDraw)</div>
-				</footer>
+						<small>Tony Ward (@YnotDraw)</small>
+					</footer>
+				</section>
+
+				<section>
+					<h2>Ember's Learning Curve</h2>
+					<section>
+						<p>Survey results always comment on the learning curve</p>
+					</section>
+					<section>
+						<p>2017 Results</p>
+						<img src='./img/2017-survey-results.png' />
+					</section>
+					<section>
+						<p>2018 Results</p>
+						<blockquote class='fragment fade-up'>Needs "Simplification of the mental model for Ember."</blockquote>
+						<blockquote class='fragment fade-up'>"If Ember were easier to learn..."</blockquote>
+					</section>
+					<section>
+						<p>These are valid comments!</p>
+					</section>
+				</section>
+
+				<section>
+					<h2>What can Ember do to improve?</h2>
+					<p class='fragment fade-up'>class syntax + decorators (!?)</p>
 				</section>
 
 				<!-- Use the new docs for assistance - lots of great explanations! -->
@@ -43,20 +67,34 @@
 					<section>
 							<h2>Class Syntax + Decorators</h2>
 							<ul>
-								<li>TC39 introduced class syntax with ES6</li>
-								<li>Decorators are needed for things like computed properties</li>
+								<li class='fragment fade-up'>TC39 introduced class syntax with ES6</li>
+								<li class='fragment fade-up'>Decorators are needed for things like computed properties</li>
 							</ul>
 					</section>
 					<section>
 						<h2>How do we get there?</h2>
-						<a href='https://medium.com/build-addepar/es-classes-in-ember-js-63e948e9d78e' target='_blank'>https://medium.com/build-addepar/es-classes-in-ember-js-63e948e9d78e</a>
+						<a href='https://medium.com/build-addepar/es-classes-in-ember-js-63e948e9d78e' target='_blank'>Medium article from Nov 2017 on class syntax + decorators in Ember</a>
 					</section>
 				</section>
 
 				<section>
+						<section>
+							<h2>There's an Ember addon for that...</h2>
+							<pre>
+								<code>
+ember install ember-decorators
+								</code>
+							</pre>
+						</section>
+					</section>
+
+				<section>
 					<section>
 						<h2>What is a decorator?</h2>
-						<p>A function that takes another function and extends the behavior of the latter function without explicitly modifying it.</p>
+						<ul>
+							<li class='fragment fade-up'>Python, Java, and other languages have them</li>
+							<li class='fragment fade-up'>"A function that takes another function and extends the behavior of the latter function without explicitly modifying it."</li>
+						</ul>
 					</section>
 					<section>
 						<h2>Example</h2>
@@ -66,7 +104,7 @@
 @concat("firstName", "lastName", " ") fullName;
 
 function concat(...args) {
-  let sep = args.pop();
+  let sep = args.pop(); // " "
 
   return function(target, key, descriptor) {
     descriptor.initializer = function() {
@@ -106,22 +144,12 @@ function autobind(target, key, descriptor) {
 				</section>
 
 				<section>
-					<section>
-						<h2>There's an Ember addon for that...</h2>
-						<pre>
-							<code>
-ember install ember-decorators
-							</code>
-						</pre>
-					</section>
-					<section>
-						Can migrate things over incrementally
-					</section>
+					<h2>Show me them in Ember!</h2>
 				</section>
 
 				<section>
 					<section>
-						<h1>Demo</h1>
+						<h1>Demo App</h1>
 					</section>
 					<section>
 							<h2>Example Model</h2>
@@ -140,10 +168,10 @@ ember install ember-decorators
 							<a href='https://github.com/ynotdraw/ember-github-decorators/blob/master/app/components/repository-card.js' target='_blank'>https://github.com/ynotdraw/ember-github-decorators/blob/master/app/components/repository-card.js</a>
 					</section>
 					<section>
-						<h2>Component Arguments</h2>
+						<h2>Component Arguments Addon</h2>
 						<ul>
-							<li>Help determine component arguments versus component state properties and their default values</li>
-							<li>Validate the argument type (string, number, action, closure action, etc.)</li>
+							<li class='fragment fade-up'>Help determine component arguments versus component state properties and their default values</li>
+							<li class='fragment fade-up'>Validate the argument type (string, number, action, closure action, etc.)</li>
 						</ul>
 					</section>
 					<section>
@@ -165,7 +193,7 @@ class FooComponent extends Component {
 						</pre>
 					</section>
 					<section>
-							Cool code mod issue to convert things for you
+							Like code mods to convert everything for you?
 							(<a href='https://github.com/ember-decorators/ember-decorators/issues/206' target='_blank'>issue</a>)
 					</section>
 				</section>
@@ -173,35 +201,39 @@ class FooComponent extends Component {
 				<section>
 					<h2>A few things to be aware of:</h2>
 					<section>
-						Still considered experimental - depends on TC39; however, is commited to keeping up with the changes
+						<p>Still considered experimental - depends on TC39; however, is commited to keeping up with the changes</p>
 					</section>
 					<section>
-						Ember Inspector no longer works for models, but they're aware of it
+						<p>Ember Inspector no longer works for models, but they're aware of it</p>
 					</section>
 					<section>
-						Increased file size (for now)
+						<p>Increased file size (for now)</p>
 						<blockquote>
-							Running the decorator code through gzip and uglification results in a final file size of 293 bytes, so about 0.25 kbs per file that includes decorators.
+							"Running the decorator code through gzip and uglification results in a final file size of 293 bytes, so about 0.25 kbs per file that includes decorators."
 						</blockquote>
 					</section>
 					<section>
-						No ember-cli support yet, still uses old blueprint (<a href='https://github.com/ember-decorators/ember-decorators/issues/142' target='_blank'>issue</a>)
+						<p>No ember-cli support yet, still uses old blueprint (<a href='https://github.com/ember-decorators/ember-decorators/issues/142' target='_blank'>issue</a>)</p>
 					</section>
 				</section>
 
 				<section>
 					<h2>Advantages</h2>
 					<section>
-						Can provide feedback on class syntax + decorators early
+						<p>Can provide feedback on class syntax + decorators early</p>
 					</section>
 					<section>
-						No longer relies on the Ember object model, instead uses native JS (lower barrier to entry for new devs)
+						<p>Can migrate code over incrementally - no need to convert all at once</p>
+						<p class='fragment fade-up'>(code mod will help here)</p>
 					</section>
 					<section>
-						Declarative, clean syntax.  Easier to read and reason about.
+						<p>No longer relies on the Ember object model, instead uses native JS (lower barrier to entry for new devs)</p>
 					</section>
 					<section>
-						Really great documentation for the addon
+						<p>Declarative, clean syntax.  Easier to read and reason about.</p>
+					</section>
+					<section>
+						<p>Really great documentation for the addon</p>
 					</section>
 				</section>
 
@@ -221,6 +253,10 @@ class FooComponent extends Component {
 								<a href='http://babeljs.io/blog/2015/03/31/5.0.0/#stage-1:-decorators' target='_blank'>http://babeljs.io/blog/2015/03/31/5.0.0/#stage-1:-decorators</a>
 							</li>
 						</ul>
+				</section>
+
+				<section>
+					<h1 style='text-align: left'>THE END</h1>
 				</section>
 			</div>
 		</div>
