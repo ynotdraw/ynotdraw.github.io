@@ -51,8 +51,10 @@
 				</section>
 
 				<section>
-					<h2>What can Ember do to improve?</h2>
-					<p class='fragment fade-up'>class syntax + decorators (!?)</p>
+					<section>
+						<h2>What can Ember do to improve?</h2>
+						<p class='fragment fade-up'>(class syntax + decorators)</p>
+					</section>
 				</section>
 
 				<!-- Use the new docs for assistance - lots of great explanations! -->
@@ -61,15 +63,26 @@
 				<section>
 					<section>
 							<h2>EmberConf 2018</h2>
-							<p>Tom & Yehuda showed off how they'd like to see Ember written in the future</p>
 							<img src='./img/emberconf.png' />
 					</section>
 					<section>
-							<h2>Class Syntax + Decorators</h2>
+							<h2>JavaScript Support</h2>
 							<ul>
 								<li class='fragment fade-up'>TC39 introduced class syntax with ES6</li>
-								<li class='fragment fade-up'>Decorators are needed for things like computed properties</li>
+								<li class='fragment fade-up'>Decorators are needed for things like computed properties and observers</li>
 							</ul>
+					</section>
+					<section>
+						<h2>JS (<a href='https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes' target='_blank'>MDN</a>)</h2>
+						<img src='./img/js.png' />
+					</section>
+					<section>
+						<h2>Angular</h2>
+						<img src='./img/angular.png' />
+					</section>
+					<section>
+						<h2>React</h2>
+						<img src='./img/react.png' />
 					</section>
 					<section>
 						<h2>How do we get there?</h2>
@@ -79,7 +92,7 @@
 						<p>
 							ES classes are already supported (<a href='https://github.com/emberjs/rfcs/blob/master/text/0240-es-classes.md' target='_blank'>RFC</a>)
 						</p>
-						<p class='fragment fade-up'>But what about decorators?</p>
+						<small class='fragment fade-up'>Decorators?</small>
 					</section>
 				</section>
 
@@ -122,35 +135,9 @@ function concat(...args) {
 						</pre>
 					</section>
 					<section>
-							<h2>Example</h2>
-							<pre>
-								<code>
-// http://babeljs.io/blog/2015/03/31/5.0.0/#stage-1:-decorators
-@autobind
-getFullName() {
-	return `${this.firstName} ${this.lastName}`;
-}
-
-function autobind(target, key, descriptor) {
-	var fn = descriptor.value;
-	delete descriptor.value;
-	delete descriptor.writable;
-	descriptor.get = function () {
-		var bound = fn.bind(this);
-		Object.defineProperty(this, key, {
-			configurable: true,
-			writable: true,
-			value: bound});
-		return bound;
-	};
-}
-								</code>
-							</pre>
-						</section>
-				</section>
-
-				<section>
-					<h2>Show me them in Ember!</h2>
+						<h2>ember-decorators goal</h2>
+						<blockquote>Its goal is to provide a set of decorators which can be used to write classes with every standard feature that is available in the standard Ember object-model, along with the transforms and build system required to polyfill and ship them today!</blockquote>
+					</section>
 				</section>
 
 				<section>
@@ -163,11 +150,11 @@ function autobind(target, key, descriptor) {
 					</section>
 					<section>
 						<h2>Example Route</h2>
-						<a href='https://github.com/ynotdraw/ember-github-decorators/blob/master/app/routes/application.js' target='_blank'>https://github.com/ynotdraw/ember-github-decorators/blob/master/app/routes/application.js</a>
+						<a href='https://github.com/ynotdraw/ember-github-decorators/blob/master/app/routes/search.js' target='_blank'>https://github.com/ynotdraw/ember-github-decorators/blob/master/app/routes/search.js</a>
 					</section>
 					<section>
 							<h2>Example Controller</h2>
-							<a href='https://github.com/ynotdraw/ember-github-decorators/blob/master/app/controllers/application.js' target='_blank'>https://github.com/ynotdraw/ember-github-decorators/blob/master/app/controllers/application.js</a>
+							<a href='https://github.com/ynotdraw/ember-github-decorators/blob/master/app/controllers/search.js' target='_blank'>https://github.com/ynotdraw/ember-github-decorators/blob/master/app/controllers/search.js</a>
 					</section>
 					<section>
 							<h2>Example Component</h2>
@@ -207,9 +194,6 @@ class FooComponent extends Component {
 				<section>
 					<h2>A few things to be aware of:</h2>
 					<section>
-						<p>Still considered experimental - depends on TC39; however, is commited to keeping up with the changes</p>
-					</section>
-					<section>
 						<p>Ember Inspector no longer works for models, but they're aware of it</p>
 					</section>
 					<section>
@@ -226,20 +210,19 @@ class FooComponent extends Component {
 				<section>
 					<h2>Advantages</h2>
 					<section>
-						<p>Can provide feedback on class syntax + decorators early</p>
-					</section>
-					<section>
-						<p>Can migrate code over incrementally - no need to convert all at once</p>
-						<p class='fragment fade-up'>(code mod will help here)</p>
-					</section>
-					<section>
 						<p>No longer relies on the Ember object model, instead uses native JS (lower barrier to entry for new devs)</p>
+						<small class='fragment fade-up'>Hopefully helps survey results with learning curve!</small>
 					</section>
 					<section>
 						<p>Declarative, clean syntax.  Easier to read and reason about.</p>
 					</section>
 					<section>
+						<p>Can migrate code over incrementally - no need to convert all at once</p>
+						<small class='fragment fade-up'>(code mod will help here)</small>
+					</section>
+					<section>
 						<p>Really great documentation for the addon</p>
+						<p class='fragment fade-up'>Seriously, go check out the docs</p>
 					</section>
 				</section>
 
@@ -247,7 +230,7 @@ class FooComponent extends Component {
 						Resources:
 						<ul>
 							<li>
-									<a href='https://github.com/ember-decorators/ember-decorators' target='_blank'>https://github.com/ember-decorators/ember-decorators</a>
+									<a href='http://ember-decorators.github.io/ember-decorators/latest/' target='_blank'>http://ember-decorators.github.io/ember-decorators/latest/</a>
 							</li>
 							<li>
 								<a href='https://github.com/NYCPlanning/labs-citymap' target='_blank'>https://github.com/NYCPlanning/labs-citymap</a>
