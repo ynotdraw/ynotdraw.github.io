@@ -137,8 +137,23 @@ ember new ember-quickstart
 				</section>
 
 				<section>
-					<h2>Quick High-Level Concepts</h2>
-					<small class='fragment'>Docs are your friend if you forget</small>
+					<section>
+						<h2>Quick High-Level Concepts</h2>
+						<small class='fragment'>Docs are your friend if you forget</small>
+					</section>
+					<section>
+						<h4>Topics</h4>
+						<ul>
+							<li>Router</li>
+							<li>Ember Data</li>
+							<li>Routes</li>
+							<li>Controllers</li>
+							<li>Templates</li>
+							<li>Components</li>
+							<li>Services</li>
+							<li>Core Concept: Computed Properties</li>
+						</ul>
+					</section>
 				</section>
 
 				<section>
@@ -348,9 +363,20 @@ ember generate component colors-card
 						<img width='60%' height='60%' src='./img/component-ex2.png' />
 					</section>
 					<section>
+						<h4>Using the Component</h4>
+						<pre>
+								<code>
+	{{colors-card}}
+	{{!-- or... --}}
+	{{colors-card colors=(array 'white' 'blue')}}
+								</code>
+							</pre>
+					</section>
+					<section>
 						<p><a href='https://www.youtube.com/watch?v=4fI72aZl_N8' target='_blank'>Learn a bit more</a> about ours!</p>
 					</section>
 				</section>
+			</section>
 
 				<section>
 					<h2>Computed Properties</h2>
