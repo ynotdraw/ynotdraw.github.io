@@ -35,7 +35,6 @@
 					<h2>What is Ember?</h2>
 					<section>
 						<p>A free, open source framework for building web apps</p>
-						<small class='fragment'><em>(Just code, man)</em></small>
 					</section>
 					<section>
 						<p>"It helps you build your web applications quickly and guides you towards writing scalable, maintainable code."</p>
@@ -128,7 +127,12 @@
 					</section>
 					<section>
 						<h4>🐹</h4>
-						<img src='./img/npm-install.png' />
+						<pre>
+								<code>
+npm install -g ember-cli
+ember new ember-quickstart
+								</code>
+							</pre>
 					</section>
 				</section>
 
@@ -194,6 +198,13 @@
 						<small>Ember Docs</small>
 					</section>
 					<section>
+						<pre>
+							<code>
+ember generate route users
+							</code>
+						</pre>
+					</section>
+					<section>
 						<p>When you generate a route, a JavaScript file and Handlebars template are created</p>
 					</section>
 					<section>
@@ -208,11 +219,19 @@
 						<img width='65%' height='65%' src='./img/route-ex.png' />
 					</section>
 				</section>
+
 				<section>
 					<h2>Controllers</h2>
 					<section>
 						<p>"...routable object which receives a single property from the Route – model – which is the return value of the Route's model() method."</p>
 						<small>Ember Docs</small>
+					</section>
+					<section>
+						<pre>
+							<code>
+ember generate controller users
+							</code>
+						</pre>
 					</section>
 					<section>
 						<p>Paired with a route of the same name</p>
@@ -242,7 +261,7 @@
 				<section>
 					<h2>Templates</h2>
 					<section>
-						<iframe style='width: 100%;height: 70vh' src='https://guides.emberjs.com/release/templates/handlebars-basics/'></iframe>
+						<p>Combination of HTML + Handlebars</p>
 					</section>
 					<section>
 						<p>Receives properties from a Controller or Component and renders HTML</p>
@@ -274,6 +293,16 @@
 					<section>
 						<p>Do you reuse some functionality a lot? May want to move it to a component.</p>
 						<small>(tests!!!!!)</small>
+					</section>
+					<section>
+						<pre>
+							<code>
+ember generate component user-card
+							</code>
+						</pre>
+					</section>
+					<section>
+						<p>When you generate a component, a JavaScript file and Handlebars template are created</p>
 					</section>
 					<section>
 						<p>You pass properties & actions into a component and it renders HTML</p>
@@ -338,6 +367,13 @@
 					<section>
 						<p>"...an Ember object that lives for the duration of the application, and can be made available in different parts of your application."</p>
 						<small>Ember Docs</small>
+					</section>
+					<section>
+						<pre>
+							<code>
+ember generate service my-service
+							</code>
+						</pre>
 					</section>
 					<section>
 						<p>Services can be injected into all of the other objects we already discussed</p>
