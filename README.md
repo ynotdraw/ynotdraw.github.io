@@ -11,6 +11,7 @@ I'm in the process of making nice github pages, but here's some info on me:
   - Slides: https://speakerdeck.com/ynotdraw/emberconf2018-toyotas-shared-component-library
   - Video Link: https://www.youtube.com/watch?v=bt9MRkf5Mus&feature=youtu.be&t=24237
 - Ember Dallas May 15th meetup on [ember-decorators](https://ynotdraw.github.io/ember-decorators/index.html#/)
+- Ember Dallas June 19th meetup on [Getting Started with Ember](https://ynotdraw.github.io/ember-getting-started/#/)
 
 ## 2017
 - [engine-pipelines](https://ynotdraw.github.io/engine-pipelines/index.html#/)

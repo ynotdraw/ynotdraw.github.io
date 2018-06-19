@@ -1,0 +1,423 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>reveal.js</title>
+
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/black.css">
+
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+				<section>
+					<h1>Getting Started with Ember</h1>
+					<footer>
+						<small>Tony Ward (@YnotDraw)</small>
+					</footer>
+				</section>
+
+				<section>
+					<h2>What is Ember?</h2>
+					<section>
+						<p>A free, open source framework for building web apps</p>
+						<small class='fragment'><em>(Just code, man)</em></small>
+					</section>
+					<section>
+						<p>"It helps you build your web applications quickly and guides you towards writing scalable, maintainable code."</p>
+						<small>Jen Weber, Ember Learning Team</small>
+					</section>
+					<section>
+						<p>Started way back in 2007 as SproutCore</p>
+						<p>Always a migration path! 🙀</p>
+					</section>
+					<section>
+						<p>6 week release cadence</p>
+						<small>RFC Process as well (Request for Comments)</small>
+					</section>
+					<section>
+						<p>A really, really great community</p>
+					</section>
+					<section>
+						<p>Can have a big learning curve at first; however, once concepts are understood, the productivity skyrockets</p>
+						<small><em>They're working on lowering the learning curve!</em></small>
+					</section>
+				</section>
+
+				<section>
+					<h2>Advantages of Ember</h2>
+					<section>
+						<h4>Conventions over Configuration</h4>
+						<ul>
+							<li class='fragment'>🚫 configuration over conventions 🚫</li>
+							<li class='fragment'>🚫 Webpack or other bundling/build tools 🚫</li>
+							<li class='fragment'>Similar project structure</li>
+							<li class='fragment'>Router included + URL support - created with routes in mind</li>
+							<li class='fragment'>Result: ⬆️ productivity & onboarding</li>
+						</ul>
+					</section>
+					<section>
+						<h4>Addon Ecosystem</h4>
+						<ul>
+							<li class='fragment'>What's an addon?</li>
+							<li class='fragment'><a href='www.emberobserver.com' target='_blank'>Ember Observer</a></li>
+							<li class='fragment'>"There's probably an addon for that"</li>
+							<li class='fragment'>No backend? No problem.  Use <a href='https://github.com/samselikoff/ember-cli-mirage' target='_blank'>ember-cli-mirage</a></li>
+						</ul>
+					</section>
+					<section>
+						<h4>Testing</h4>
+						<ul>
+							<li class='fragment'>(Sleeper advantage)</li>
+							<li class='fragment'>Unit, Integration, and Acceptance testing</li>
+							<li class='fragment'>Mirage helps a lot with acceptance tests</li>
+							<li class='fragment'>Services like <a href='https://percy.io/' target='_blank'>Percy.io</a> for visual diffing changes 👍</li>
+						</ul>
+					</section>
+					<section>
+						<h2>Other...</h2>
+						<ul>
+							<li class='fragment'>ember-cli</li>
+							<li class='fragment'>"Stability over Stagnation", always an upgrade path, polyfills for new features if you can't upgrade just yet for whatever reason</li>
+							<li class='fragment'>No need for jquery</li>
+							<li class='fragment'>Ember Inspector</li>
+							<li class='fragment'>RFC Process</li>
+						</ul>
+					</section>
+					<section>
+						<h2>Other #2...</h2>
+						<ul>
+							<li class='fragment'>Helpful Slack + Discourse forum</li>
+							<li class='fragment'>Cool EmberConf swag</li>
+							<li class='fragment'>Suit-envy of Tom Dale</li>
+						</ul>
+					</section>
+				</section>
+
+				<section>
+					<h2>Who uses Ember?</h2>
+					<iframe style='width: 100%;height: 70vh' src='https://emberjs.com/ember-users/'></iframe>
+				</section>
+
+				<section>
+					<h2>Getting Started</h2>
+					<section>
+						<h4>Basic Knowledge of...</h4>
+						<img width='50%' height='50%' src='./img/html_css_js.png' />
+					</section>
+					<section>
+						<h4>Installation Pre-reqs</h4>
+						<ul>
+							<li>Node/NPM <a href='https://github.com/creationix/nvm' target='_blank'>(nvm!)</a></li>
+							<li>HomeBrew package manager</li>
+							<li>yarn (optional, but recommended)</li>
+							<li>Your favorite text editor</li>
+						</ul>
+					</section>
+					<section>
+						<h4>🐹</h4>
+						<img src='./img/npm-install.png' />
+					</section>
+				</section>
+
+				<section>
+					<h2>Quick High-Level Concepts</h2>
+					<small class='fragment'>Docs are your friend if you forget</small>
+				</section>
+
+				<section>
+					<h2>Router</h2>
+					<section>
+						<p>Defines all routes in your application</p>
+					</section>
+					<section>
+						<p>Does the work for you when a user navigates to https://your-app.com/users</p>
+					</section>
+					<section>
+						<img width='60%' height='60%' src='./img/router-ex.png' />
+					</section>
+				</section>
+
+				<section>
+					<h2>Ember Data</h2>
+					<section>
+						<p>"...a library for robustly managing model data in your Ember.js applications."</p>
+						<small><a href='https://github.com/emberjs/data' target='_blank'>Ember Data GitHub</a></small>
+					</section>
+					<section>
+						<h4>Interacts with a Persistence Layer</h4>
+						<ul>
+							<li class='fragment'>Browser local storage (less likely)</li>
+							<li class='fragment'>Used to make API requests to a server (more likely)</li>
+							<li class='fragment'>Does your API use JSON:API or REST? 👍</li>
+						</ul>
+					</section>
+					<section>
+						<h4>Ember Data Concepts</h2>
+						<ul>
+							<li class='fragment'>server responses ➡️ objects (ORM)</li>
+							<li class='fragment'><strong>Model:</strong> "the structure of the data you wish to provide to your application "</li>
+							<li class='fragment'><strong>Adapter:</strong> "...an object that receives requests from a store and translates them into the appropriate action to take against your persistence layer."</li>
+							<li class='fragment'><strong>Serializer:</strong> Used to tell what</li>
+						</ul>
+					</section>
+					<section>
+						<img width='65%' src='./img/model.png' />
+					</section>
+					<section>
+						<img src='./img/adapter.png' />
+					</section>
+					<section>
+						<p>Ember Inspector - helps you view what's in the store</p>
+					</section>
+					<section>
+						<p>You don't <em>have</em> to use Ember Data</p>
+					</section>
+				</section>
+
+				<section>
+					<h2>Route Handlers (Route)</h2>
+					<section>
+						<p>"...responsible for displaying templates, loading data, and setting up application state."</p>
+						<small>Ember Docs</small>
+					</section>
+					<section>
+						<p>When you generate a route, a JavaScript file and Handlebars template are created</p>
+					</section>
+					<section>
+						<h4>Recommended Usage</h4>
+						<ul>
+							<li class='fragment'>Leverage the model hook(s) to load data</li>
+							<li class='fragment'>The model hook will return a model to the controller/route template</li>
+							<li class='fragment'>Handle transitioning cases ("are you sure?", removing things from the store, etc.)</li>
+						</ul>
+					</section>
+					<section>
+						<img width='65%' height='65%' src='./img/route-ex.png' />
+					</section>
+				</section>
+				<section>
+					<h2>Controllers</h2>
+					<section>
+						<p>"...routable object which receives a single property from the Route – model – which is the return value of the Route's model() method."</p>
+						<small>Ember Docs</small>
+					</section>
+					<section>
+						<p>Paired with a route of the same name</p>
+						<small>EX: /routes/users.js + /controllers/users.js</small>
+					</section>
+					<section>
+						<ul>
+							<li class='fragment'>Define the model returned from the Route</li>
+							<li class='fragment'>Define computed properties
+								<ul>
+									<li>Sort/filter the model client-side</li>
+									<li>Generate a property based on the model</li>
+								</ul>
+							</li>
+							<li class='fragment'>Define actions
+								<ul>
+									<li>Event handlers for elements</li>
+								</ul>
+							</li>
+						</ul>
+					</section>
+					<section>
+						<img width='65%' height='65%' src='./img/controller-ex.png' />
+					</section>
+				</section>
+
+				<section>
+					<h2>Templates</h2>
+					<section>
+						<iframe style='width: 100%;height: 70vh' src='https://guides.emberjs.com/release/templates/handlebars-basics/'></iframe>
+					</section>
+					<section>
+						<p>Receives properties from a Controller or Component and renders HTML</p>
+					</section>
+					<section>
+						<p>Think of your Route Template as your "page"</p>
+						<small>Typically made up of many HTML elements + components</small>
+					</section>
+					<section>
+						<img src='./img/template-ex1.png' />
+					</section>
+					<section>
+						<img src='./img/template-ex2.png' />
+					</section>
+					<section>
+						<img width='65%' height='65%' src='./img/template-ex3.png' />
+					</section>
+					<section>
+						<p>HTML + Handlebars = templates️</p>
+					</section>
+				</section>
+
+				<section>
+					<h2>Components</h2>
+					<section>
+						<p>"...used to encapsulate markup and style into reusable content."</p>
+						<small>Ember Docs</small>
+					</section>
+					<section>
+						<p>Do you reuse some functionality a lot? May want to move it to a component.</p>
+						<small>(tests!!!!!)</small>
+					</section>
+					<section>
+						<p>You pass properties & actions into a component and it renders HTML</p>
+					</section>
+					<section>
+						<h4>Example Components</h4>
+						<ul>
+							<li>Themed Buttons</li>
+							<li>Reusable text</li>
+							<li>Info Cards</li>
+						</ul>
+					</section>
+					<section>
+						<h4>Made up of two files</h4>
+						<ul>
+							<li>JavaScript file</li>
+							<li>Handlebars template</li>
+						</ul>
+					</section>
+					<section>
+						<img width='50%' height='50%' src='./img/component-ex.png' />
+					</section>
+					<section>
+						<img src='./img/component-ex1.png' />
+					</section>
+					<section>
+						<img width='60%' height='60%' src='./img/component-ex2.png' />
+					</section>
+					<section>
+						<p><a href='https://www.youtube.com/watch?v=4fI72aZl_N8' target='_blank'>Learn a bit more</a> about ours!</p>
+					</section>
+				</section>
+
+				<section>
+					<h2>Computed Properties</h2>
+					<section>
+						<p>"...transforms an object literal with object's accessor function(s) into a property."</p>
+						<small>Ember Docs</small>
+					</section>
+					<section>
+						<p>They get re-evaluated when the keys change</p>
+					</section>
+					<section>
+						<p>Lazily-loaded, so only compute when you ask about them or if something changes</p>
+					</section>
+					<section>
+						<h4>Use Cases</h4>
+						<ul>
+							<li class='fragment'>Viewing multiple properties and generating some result property</li>
+							<li class='fragment'>Filtering/Sorting a collection</li>
+							<li class='fragment'>Bool,Sum,Or,And,Equal,etc.(Computed Macros in Docs)</li>
+							<li class='fragment'>Generating a class name for a component based on a property</li>
+						</ul>
+					</section>
+					<section>
+						<img width='60%' height='60%' src='./img/computed-ex.png' />
+					</section>
+				</section>
+
+				<section>
+					<h2>Services</h2>
+					<section>
+						<p>"...an Ember object that lives for the duration of the application, and can be made available in different parts of your application."</p>
+						<small>Ember Docs</small>
+					</section>
+					<section>
+						<p>Services can be injected into all of the other objects we already discussed</p>
+					</section>
+					<section>
+						<p>Services are singletons - think about state</p>
+					</section>
+					<section>
+						<h4>Examples</h4>
+						<ul>
+							<li>Translation service</li>
+							<li>Auth service</li>
+							<li>Logging service</li>
+							<li>3rd-party service</li>
+						</ul>
+					</section>
+				</section>
+
+				<section>
+					<h2>Information overload complete</h2>
+				</section>
+
+				<section>
+					<h2>Go-To Addons</h2>
+					<ul>
+						<li class='fragment'><a href='https://github.com/aexmachina/ember-cli-sass' target='_blank'>ember-cli-sass</a></li>
+						<li class='fragment'><a href='https://github.com/ember-intl/ember-intl' target='_blank'>ember-intl</a></li>
+						<li class='fragment'><a href='https://github.com/machty/ember-concurrency' target='_blank'>ember-concurrency</a></li>
+						<li class='fragment'><a href='https://github.com/jmurphyau/ember-truth-helpers' target='_blank'>ember-truth-helpers</a></li>
+						<li class='fragment'><a href='https://github.com/simplabs/ember-test-selectors' target='_blank'>ember-test-selectors</a></li>
+						<li class='fragment'><a href='https://medium.com/@ynotdraw/setup-your-ember-app-with-eslint-quickly-2d7e8a632c88' target='_blank'>ESLint (shameless self-promoted Medium article)</a></li>
+						<li class='fragment'><a href='https://github.com/samselikoff/ember-cli-mirage' target='_blank'>ember-cli-mirage</a></li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>Resources</h2>
+					<ul>
+						<li>
+							<a href='https://docs.google.com/presentation/d/1sezqSmxkxo9EmBNpdD76VCTKQtztfO0qS5cGdixRMNw/edit#slide=id.g29be40d55c_0_94' target='_blank'>Jen Weber's presentation</a>
+						</li>
+						<li>
+							<a href='https://emberjs.com' target='_blank'>emberjs.com docs</a>
+						</li>
+						<li>
+							<a href='https://dockyard.com/blog/2015/10/14/best-practices-data-down-actions-up' target='_blank'>Data Down, Actions Up</a>
+						</li>
+					</ul>
+				</section>
+
+				<section>
+					<h1 style='text-align: left'>THE END</h1>
+				</section>
+			</div>
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+
+		<script>
+			// More info about config & dependencies:
+			// - https://github.com/hakimel/reveal.js#configuration
+			// - https://github.com/hakimel/reveal.js#dependencies
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+				dependencies: [
+					{ src: 'plugin/markdown/marked.js' },
+					{ src: 'plugin/markdown/markdown.js' },
+					{ src: 'plugin/notes/notes.js', async: true },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+				]
+			});
+		</script>
+	</body>
+</html>
