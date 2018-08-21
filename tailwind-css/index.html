@@ -1,0 +1,150 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>reveal.js</title>
+
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/black.css">
+
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+				<section>
+					<h1>Functional CSS with Tailwind</h1>
+					<footer>
+						<small>Tony Ward (@YnotDraw)</small>
+					</footer>
+				</section>
+
+				<section>
+					<p>Typical Styling Conventions</p>
+					<ul>
+						<li>Use Block Element Modifier (BEM)</li>
+						<li>Create a component sass partial `_user-card.scss`</li>
+						<li>Add elements `.user-card__title`</li>
+						<li>Add modifiers `.user-card__status--active`</li>
+					</ul>
+				</section>
+
+				<section>
+					<h3>Problem With BEM</h3>
+					<section>
+						<p>It's not descriptive</p>
+						<p class='fragment'>Potential bad abstractions</p>
+						<p class='fragment'>Naming things is hard already</p>
+						<p class='fragment'>Need to open template + sass files side by side for all information</p>
+						<p class='fragment'>☝️ (I'm lazy)</p>
+					</section>
+					<section>
+						<pre>
+							<code>
+<div class='user-card'>
+  <div class='user-card__container'>
+    <img class='user-card__image' src="">
+    <div class='user-card__info'>
+      <div class='user-card__info-top'>
+        <p class='user-card__name'>Tony</p>
+        <p class='user-card__title'>Front End Developer @ TC</p>
+      </div>
+      <div class='user-card__info-bottom'>
+        <button class='user-card__button'>Message</button>
+      </div>
+    </div>
+  </div>
+</div>
+							</code>
+						</pre>
+					<p class='fragment'>I see things are broken into appropriate sections, but I have no idea what it looks like</p>
+					</section>
+				</section>
+
+				<section>
+					<p>Much Better: Functional/Utility CSS</p>
+					<ul>
+						<li>Highly composable, low level utility classes</li>
+						<li>More descriptive class names</li>
+						<li>Allows you to get more information from the template</li>
+					</ul>
+				</section>
+
+				<section>
+          <p>Example</p>
+          <section>
+            <pre>
+              <code>
+  .flex {
+    display: flex;
+  }
+
+  .justify-between {
+    justify-content: space-between;
+  }
+
+  .bg-black {
+    background-color: #22292f;
+  }
+              </code>
+            </pre>
+          </section>
+          <section>
+            <pre>
+              <code>
+<div class='flex justify-between bg-black'>
+  <button>Click Me</button>
+  <button>Click Me</button>
+</div>
+              </code>
+            </pre>
+          </section>
+				</section>
+
+				<section>
+					<a href='https://tailwindcss.com/docs/text-color'>Let's look at the Tailwind docs some more</a>
+				</section>
+
+				<section>
+					<h1 style='text-align: left'>THE END</h1>
+				</section>
+			</div>
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+
+		<script>
+			// More info about config & dependencies:
+			// - https://github.com/hakimel/reveal.js#configuration
+			// - https://github.com/hakimel/reveal.js#dependencies
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+				dependencies: [
+					{ src: 'plugin/markdown/marked.js' },
+					{ src: 'plugin/markdown/markdown.js' },
+					{ src: 'plugin/notes/notes.js', async: true },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+				]
+			});
+		</script>
+	</body>
+</html>

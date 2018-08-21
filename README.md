@@ -12,6 +12,7 @@ I'm in the process of making nice github pages, but here's some info on me:
   - Video Link: https://www.youtube.com/watch?v=bt9MRkf5Mus&feature=youtu.be&t=24237
 - Ember Dallas May 15th meetup on [ember-decorators](https://ynotdraw.github.io/ember-decorators/index.html#/)
 - Ember Dallas June 19th meetup on [Getting Started with Ember](https://ynotdraw.github.io/ember-getting-started/#/)
+- Ember Dallas August 21st meetup on [FunctionalCSS with Tailwind](https://ynotdraw.github.io/tailwind-css/#/)
 
 ## 2017
 - [engine-pipelines](https://ynotdraw.github.io/engine-pipelines/index.html#/)
