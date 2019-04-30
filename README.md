@@ -5,8 +5,8 @@ If you'd like to view my personal site, checkout [ynotdraw.com](ynotdraw.com) or
 # Public Presentations
 ## 2018
 - EmberConf 2018: MiniTalk on Toyota's Shared Component Library
-  - Slides: https://speakerdeck.com/ynotdraw/emberconf2018-toyotas-shared-component-library
-  - Video Link: https://www.youtube.com/watch?v=bt9MRkf5Mus&feature=youtu.be&t=24237
+  - [Slides](https://speakerdeck.com/ynotdraw/emberconf2018-toyotas-shared-component-library)
+  - [Video Link](https://www.youtube.com/watch?v=bt9MRkf5Mus&feature=youtu.be&t=24237)
 - Ember Dallas May 15th meetup on [ember-decorators](https://ynotdraw.github.io/ember-decorators/index.html#/)
 - Ember Dallas June 19th meetup on [Getting Started with Ember](https://ynotdraw.github.io/ember-getting-started/#/)
 - Ember Dallas August 21st meetup on [FunctionalCSS with Tailwind](https://ynotdraw.github.io/tailwind-css/#/)
