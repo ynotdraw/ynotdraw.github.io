@@ -1,9 +1,6 @@
 # Howdy
-I'm in the process of making nice github pages, but here's some info on me:
+If you'd like to view my personal site, checkout [ynotdraw.com](ynotdraw.com) or [tonyward.dev](https://www.tonyward.dev).  This repo is mostly just for storing my talks :)
 
-- **Medium:** https://medium.com/@ynotdraw
-- **Twitter:** https://twitter.com/_ynotdraw
-- **EmberJS Slack:** YnotDraw
 
 # Public Presentations
 ## 2018
