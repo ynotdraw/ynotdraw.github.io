@@ -3,6 +3,9 @@ If you'd like to view my personal site, checkout [ynotdraw.com](ynotdraw.com) or
 
 
 # Public Presentations
+## 2019
+- Design Systems with React at [Triangle ReactJS Meetup](https://www.meetup.com/triangle-reactjs-developers/events/261057031/)  | [Slides](https://speakerdeck.com/ynotdraw/design-systems-with-react)
+
 ## 2018
 - EmberConf 2018: MiniTalk on Toyota's Shared Component Library
   - [Slides](https://speakerdeck.com/ynotdraw/emberconf2018-toyotas-shared-component-library)
